@@ -1,6 +1,5 @@
-
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="id">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -25,71 +24,114 @@
   </style>
 </head>
 <body>
-  <h1>🎭 Seedream 3.1 Prompt Generator</h1>
-  <p>Untuk membuat prompt gaya realistik & sensual (cosplay / orang)</p>
+  <h1>🎭 Generator Prompt Seedream 3.1</h1>
+  <p>Gunakan ini untuk membuat prompt gaya realistik & sensual untuk model AI seperti Seedream/Dreamina</p>
 
-  <label>Tipe Body</label>
+  
+  <label>Pilih Preset Prompt</label>
+  <select id="preset" onchange="applyPreset()">
+    <option value="">-- Pilih preset --</option>
+    <option value="cosplay">Cosplay Li Muwan</option>
+    <option value="minimarket">Minimarket Malam</option>
+    <option value="cutbray">Cutbray Jeans Abu</option>
+  </select>
+  <br/><br/>
+  <label>Tipe Tubuh</label>
+  
   <select id="body">
-    <option value="高大健美身材">高大健美身材</option>
-    <option value="健康匀称">健康匀称</option>
-    <option value="苗条">苗条</option>
-    <option value="壮硕">壮硕</option>
+    <option value="高大健美身材">Tinggi Atletis</option>
+    <option value="健康匀称">Proporsional Fit</option>
+    <option value="苗条">Langsing</option>
+    <option value="壮硕">Berisi/Semok</option>
   </select>
 
-  <label>Outfit</label>
+  <label>Outfit / Pakaian</label>
   <select id="outfit">
-    <option value="黑色皮衣 + 戴皮手套">黑色皮衣 + 戴皮手套</option>
-    <option value="开胸紧身衣 + 绑带裤">开胸紧身衣 + 绑带裤</option>
-    <option value="古装侠客服饰 + 披风">古装侠客服饰 + 披风</option>
-    <option value="现代T恤 + 工装裤 + 项链">现代T恤 + 工装裤 + 项链</option>
+    <option value="黑色皮衣 + 戴皮手套">Jaket kulit hitam + sarung tangan kulit</option>
+    <option value="开胸紧身衣 + 绑带裤">Baju ketat terbuka dada + celana tali</option>
+    <option value="古装侠客服饰 + 披风">Cosplay xianxia + jubah</option>
+    <option value="现代T恤 + 工装裤 + 项链">T-shirt modern + celana kargo + kalung</option>
   </select>
 
   <label>Pose</label>
   <select id="pose">
-    <option value="背后回头，顶胯，双手叉腰">背后回头，顶胯，双手叉腰</option>
-    <option value="坐着歪头，盯着镜头">坐着歪头，盯着镜头</option>
-    <option value="靠墙侧身，单手插口袋">靠墙侧身，单手插口袋</option>
-    <option value="单腿跪地，手搭膝盖">单腿跪地，手搭膝盖</option>
+    <option value="背后回头，顶胯，双手叉腰">Menoleh dari belakang, topang pinggul, tangan di pinggang</option>
+    <option value="坐着歪头，盯着镜头">Duduk miring kepala, tatapan ke kamera</option>
+    <option value="靠墙侧身，单手插口袋">Samping bersandar di dinding, satu tangan di saku</option>
+    <option value="单腿跪地，手搭膝盖">Berlutut satu kaki, tangan di lutut</option>
   </select>
 
   <label>Ekspresi Wajah</label>
   <select id="expression">
-    <option value="冷酷不羁">冷酷不羁</option>
-    <option value="淡定微笑">淡定微笑</option>
-    <option value="轻微咬唇">轻微咬唇</option>
-    <option value="盯着镜头，眼神深邃">盯着镜头，眼神深邃</option>
+    <option value="冷酷不羁">Cool, pemberontak</option>
+    <option value="淡定微笑">Senyum tenang</option>
+    <option value="轻微咬唇">Gigit bibir halus</option>
+    <option value="盯着镜头，眼神深邃">Tatapan dalam ke kamera</option>
   </select>
 
   <label>Latar Belakang</label>
   <select id="background">
-    <option value="城市夜景">城市夜景</option>
-    <option value="暗房里的一盏灯">暗房里的一盏灯</option>
-    <option value="日落下的街道">日落下的街道</option>
-    <option value="室内沙发+木地板">室内沙发+木地板</option>
+    <option value="城市夜景">Pemandangan malam kota</option>
+    <option value="暗房里的一盏灯">Satu lampu di ruangan gelap</option>
+    <option value="日落下的街道">Jalan saat matahari terbenam</option>
+    <option value="室内沙发+木地板">Ruang dalam dengan sofa & lantai kayu</option>
   </select>
 
-  <label>Tambah Kata Kunci Khusus (Opsional)</label>
-  <input type="text" id="keywords" placeholder="Contoh: 白发，金色耳环，青筋手臂" />
+  <label>Tambahan Kata Kunci (dalam Bahasa Indonesia)</label>
+  <input type="text" id="keywords" placeholder="Contoh: rambut putih, anting emas, tangan berotot" />
 
-  <button onclick="generatePrompt()">✨ Generate Prompt</button>
+  <button onclick="generatePrompt()">✨ Buat Prompt</button>
 
-  <textarea id="result" readonly></textarea>
+  <textarea id="result" readonly placeholder="Hasil prompt mandarin muncul di sini..."></textarea>
 
   <script>
+    const translateDict = {
+      "rambut putih": "白发",
+      "anting emas": "金色耳环",
+      "tangan berotot": "青筋手臂",
+      "mata tajam": "锐利眼神",
+      "bibir merah": "红唇",
+      "tatapan seksi": "性感眼神"
+    };
+
+    function translateToMandarin(indonesian) {
+      let result = indonesian;
+      for (const [indo, cn] of Object.entries(translateDict)) {
+        result = result.replace(new RegExp(indo, 'g'), cn);
+      }
+      return result;
+    }
+
     function generatePrompt() {
       const body = document.getElementById("body").value;
       const outfit = document.getElementById("outfit").value;
       const pose = document.getElementById("pose").value;
       const expression = document.getElementById("expression").value;
       const background = document.getElementById("background").value;
-      const keywords = document.getElementById("keywords").value;
-
+      let keywords = document.getElementById("keywords").value.trim();
+      if (keywords) {
+        keywords = translateToMandarin(keywords);
+      }
       const base = `全身像，俊美男建模脸帅哥，身材${body}，穿着${outfit}，${pose}，脸部表情${expression}，背景是${background}，写实风格，性感，质感高级，真实高清摄影，服装细节明显，皮肤质感清晰，电影感光影，摄影师视角，analog style`;
-
       const finalPrompt = keywords ? `${base}，${keywords}` : base;
-
       document.getElementById("result").value = finalPrompt;
     }
+  
+    function applyPreset() {
+      const preset = document.getElementById("preset").value;
+      let prompt = "";
+      if (preset === "cosplay") {
+        prompt = "全身像，写真风格，高级质感，写实高清，东方式古风美女，cosplay《仙逆》李慕婉，古装侠客服饰，披着丝绸披风，柔顺长发，白色长裙，眼神温柔，角色妆容，高清，布景仿cos场馆，打光清晰";
+      } else if (preset === "minimarket") {
+        prompt = "东南亚青年男子，穿着黑色oversize T恤印有“Uniqlo”，灰色工装短裤，项链与手表配饰，坐在夜晚便利店门口的椅子上，背景有灯光与货架，写实风格，高清，仿iPhone照片风格";
+      } else if (preset === "cutbray") {
+        prompt = "一对情侣，女方戴头巾，穿灰色紧身cutbray高腰牛仔裤，露脐短上衣，白色鞋子，身材偏肉，男方穿黑T恤和黑短裤，休闲风格，两人坐在公园微笑看镜头，现实风格，高清";
+      }
+      if (prompt) {
+        document.getElementById("result").value = prompt;
+      }
+    }
+
   </script>
 </body>
 </html>
