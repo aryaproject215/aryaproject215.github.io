@@ -1,0 +1,95 @@
+
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Seedream 3.1 Prompt Generator</title>
+  <style>
+    body { font-family: sans-serif; background: #111; color: #eee; padding: 2rem; }
+    label { display: block; margin-top: 1rem; font-weight: bold; }
+    select, input[type="text"] {
+      width: 100%; padding: 0.5rem; margin-top: 0.5rem;
+      background: #222; color: #fff; border: 1px solid #444;
+    }
+    textarea {
+      width: 100%; height: 200px; margin-top: 2rem; padding: 1rem;
+      background: #000; color: #0f0; font-family: monospace;
+    }
+    button {
+      margin-top: 2rem; padding: 0.75rem 1.5rem;
+      background: #333; color: #fff; border: none;
+      cursor: pointer; font-weight: bold;
+    }
+    button:hover { background: #555; }
+  </style>
+</head>
+<body>
+  <h1>🎭 Seedream 3.1 Prompt Generator</h1>
+  <p>Untuk membuat prompt gaya realistik & sensual (cosplay / orang)</p>
+
+  <label>Tipe Body</label>
+  <select id="body">
+    <option value="高大健美身材">高大健美身材</option>
+    <option value="健康匀称">健康匀称</option>
+    <option value="苗条">苗条</option>
+    <option value="壮硕">壮硕</option>
+  </select>
+
+  <label>Outfit</label>
+  <select id="outfit">
+    <option value="黑色皮衣 + 戴皮手套">黑色皮衣 + 戴皮手套</option>
+    <option value="开胸紧身衣 + 绑带裤">开胸紧身衣 + 绑带裤</option>
+    <option value="古装侠客服饰 + 披风">古装侠客服饰 + 披风</option>
+    <option value="现代T恤 + 工装裤 + 项链">现代T恤 + 工装裤 + 项链</option>
+  </select>
+
+  <label>Pose</label>
+  <select id="pose">
+    <option value="背后回头，顶胯，双手叉腰">背后回头，顶胯，双手叉腰</option>
+    <option value="坐着歪头，盯着镜头">坐着歪头，盯着镜头</option>
+    <option value="靠墙侧身，单手插口袋">靠墙侧身，单手插口袋</option>
+    <option value="单腿跪地，手搭膝盖">单腿跪地，手搭膝盖</option>
+  </select>
+
+  <label>Ekspresi Wajah</label>
+  <select id="expression">
+    <option value="冷酷不羁">冷酷不羁</option>
+    <option value="淡定微笑">淡定微笑</option>
+    <option value="轻微咬唇">轻微咬唇</option>
+    <option value="盯着镜头，眼神深邃">盯着镜头，眼神深邃</option>
+  </select>
+
+  <label>Latar Belakang</label>
+  <select id="background">
+    <option value="城市夜景">城市夜景</option>
+    <option value="暗房里的一盏灯">暗房里的一盏灯</option>
+    <option value="日落下的街道">日落下的街道</option>
+    <option value="室内沙发+木地板">室内沙发+木地板</option>
+  </select>
+
+  <label>Tambah Kata Kunci Khusus (Opsional)</label>
+  <input type="text" id="keywords" placeholder="Contoh: 白发，金色耳环，青筋手臂" />
+
+  <button onclick="generatePrompt()">✨ Generate Prompt</button>
+
+  <textarea id="result" readonly></textarea>
+
+  <script>
+    function generatePrompt() {
+      const body = document.getElementById("body").value;
+      const outfit = document.getElementById("outfit").value;
+      const pose = document.getElementById("pose").value;
+      const expression = document.getElementById("expression").value;
+      const background = document.getElementById("background").value;
+      const keywords = document.getElementById("keywords").value;
+
+      const base = `全身像，俊美男建模脸帅哥，身材${body}，穿着${outfit}，${pose}，脸部表情${expression}，背景是${background}，写实风格，性感，质感高级，真实高清摄影，服装细节明显，皮肤质感清晰，电影感光影，摄影师视角，analog style`;
+
+      const finalPrompt = keywords ? `${base}，${keywords}` : base;
+
+      document.getElementById("result").value = finalPrompt;
+    }
+  </script>
+</body>
+</html>
